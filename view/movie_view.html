@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% if movies|length > 1 %}
+            All movies by year
+        {%else%}
+            Details of this movie : {{movies[0].title}}
+        {% endif %}
+    </title>
+</head>
+
+<body>
+    <h1>List of ghibli movies</h1>
+    {% if movies|length == 1 %}
+        <a href="{{ url_for('show_all_movies') }}">All movies</a>
+    {%endif %}
+    <ul>
+        {% for movie in movies %}
+            {% if movies|length > 1 %}
+            <a href="{{ url_for('show_one_movie', id_movie=movie.id) }}">
+            {%endif %}
+                <li>{{ movie.title }} ({{ movie.release_date }})</li>
+            {% if movies|length > 1 %}
+                </a>
+            {% endif %}
+        {% else %}
+        <li>Aucun film trouvé.</li>
+        {% endfor %}
+    </ul>
+</body>
+
+</html>
