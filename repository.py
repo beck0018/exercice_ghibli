@@ -1,23 +1,42 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 import requests
-from fastapi.responses import JSONResponse
-import json
-from typing import Any, List, Dict
+from typing import List
+from pydantic import BaseModel
 
 # call the api
 app = FastAPI()
 
+
+class Movie(BaseModel):
+    id: str
+    title: str
+    original_title: str
+    original_title_romanised: str
+    description: str
+    director: str
+    producer: str
+    release_date: str
+    running_time: str
+    rt_score: str
+    people: List[str]
+    species: List[str]
+    locations: List[str]
+    vehicles: List[str]
+    url: str
+
+
 # Constants
-URL_API_GHIBLI = "https://ghibliapi.vercel.app/films/"
+URL_API_GHIBLI = "https://ghibliapi.vercel.app/films"
 
 
-def get_all_movie_api()-> dict:
+def get_all_movie_api() -> List[Movie]:
     response = requests.get(URL_API_GHIBLI)
     response.raise_for_status()
-    return response.json()
+    movies = response.json()
+    return [Movie(**movie) for movie in movies]
 
 
-def get_one_movie_api(str : id)-> dict:
+def get_one_movie_api(id: str) -> Movie:
     response = requests.get(f"{URL_API_GHIBLI}/{id}")
     response.raise_for_status()
-    return response.json()
+    return Movie(**response.json())
