@@ -6,7 +6,7 @@ templates = Jinja2Templates(directory="view")
 
 
 def get_all_ghibli_movies(requests: Request):
-    ## recuperer la listes des films
+    # show movies list sorted by release date
     movies = get_all_movie_api()
     movies.sort(key=lambda x: x.release_date)
     return templates.TemplateResponse(
@@ -15,7 +15,7 @@ def get_all_ghibli_movies(requests: Request):
 
 
 def get_one_ghibli_movies(requests: Request, id_movie):
-    ## recuperer un film
+    # show movie description
     movie = get_one_movie_api(id_movie)
     return templates.TemplateResponse(
         "movie_view.html", {"request": requests, "movies": [movie]}

@@ -21,6 +21,7 @@ def show_all_movies(request: Request):
 def show_one_movie(request: Request, id_movie: str):
     try:
         return get_one_ghibli_movies(request, id_movie)
+    # management of errors
     except HTTPError as e:
         if e.response.status_code == 404:
             raise NotFoundError(f"Movie with id {id_movie} not found.")

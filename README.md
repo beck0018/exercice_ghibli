@@ -1,13 +1,11 @@
-# Exercice Ghibli — API
+# Ghibli Exercise — API
 
-Cette API permet de consulter les films du **Studio Ghibli**.
-
+This API allows you to browse **Studio Ghibli films**.
 ---
+## 1 Retrieve all films
 
-### 1️⃣ Récupérer tous les films
-**Requête :** GET /api/ghibli/films/
+Request: GET /api/ghibli/films/
 
----
+## 2 Retrieve a film by ID
 
-### 2️⃣ Récupérer un film par ID
-**Requête :** GET /api/ghibli/films/{id_movie}
+Request: GET /api/ghibli/films/{id_movie}
