@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- Title -->
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% if movies|length > 1 %}
+            All movies by year
+        {%else%}
+            Details of this movie : {{movies[0].title}}
+        {% endif %}
+    </title>
+</head>
+<!-- Body -->
+<body>
+    <!-- title page -->
+    {% if movies|length == 1 %}
+        <h1>Details of this movie : {{movies[0].title}}</h1>
+        <a href="/api/ghibli/films/">All movies</a>
+    {%else%}
+        <h1>List of ghibli movies</h1>
+    {%endif %}
+    <!-- list of one or many movies -->
+    <ul>
+        {% for movie in movies %}
+            {% if movies|length > 1 %}
+                <a href="/api/ghibli/films/{{ movie.id }}">
+                <li>{{ movie.title }} ({{ movie.release_date }})</li>
+            {%else%}
+                <li>{{ movie.title }} ({{ movie.release_date }}) : {{ movie.description }}</li>
+            {%endif %}
+            {% if movies|length > 1 %}
+                </a>
+            {% endif %}
+        {% else %}
+        <li>No movie found.</li>
+        {% endfor %}
+    </ul>
+</body>
+
+</html>
